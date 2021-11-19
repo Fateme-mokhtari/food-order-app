@@ -1,4 +1,5 @@
-import classes from "./MealsSummary.mosule.css";
+import classes from "./mealsSummary.module.css";
+
 const MealsSummary = () => {
   return (
 <section className={classes.summary}>
