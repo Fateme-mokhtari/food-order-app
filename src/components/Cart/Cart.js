@@ -8,7 +8,7 @@ const cartItem=<ul className={classes['cart-items']}>
 
   return <Modal>
       {cartItem}
-      <div className={classess.total}>
+      <div className={classes.total}>
           <span>Total amount</span>
           <span>35.66</span>
       </div>

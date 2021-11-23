@@ -1,17 +1,19 @@
-import reactDom from "react-dom";
+import ReactDOM from "react-dom";
 import { Fragment } from "react/cjs/react.production.min";
 import classes from "./Modal.module.css";
 
 const ModalOverlay = (props) => {
-  <div className={classes.modal}>
-    <div className={classes.content}>{props.children}</div>
-  </div>;
+  return (
+    <div className={classes.modal}>
+      <div className={classes.content}>{props.children}</div>
+    </div>
+  );
 };
-const Backdrop = () => {
+const Backdrop = (props) => {
   return <div className={classes.backdrop} />;
 };
 
-const Modal = () => {
+const Modal = (props) => {
   const prtalOverlay = document.getElementById("overlays");
   return (
     <Fragment>
