@@ -9,6 +9,7 @@ function App() {
   const showCartHandler = () => {
     setCartIsShown(true);
   };
+  
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
