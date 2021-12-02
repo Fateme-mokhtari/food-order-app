@@ -10,7 +10,9 @@ const Cart = (props) => {
   const hasItem = cartCtx.items.length > 0;
 
   const cartItemRemoveHandler=(id)=>{}
-  const cartItemAddHandler=(item)=>{}
+  const cartItemAddHandler=(item)=>{
+    cartCtx.addItem({...item,amount:1})
+  }
 
   const cartItem = (
     <ul className={classes["cart-items"]}>
