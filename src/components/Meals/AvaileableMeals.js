@@ -4,28 +4,39 @@ import classes from "./AvaileableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 
 const AvaileableMeals = () => {
+  const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
- const[meals,setMeals]= useState([])
   useEffect(async () => {
     const fetchMeals = async () => {
+  
       const response = await fetch(
         "https://food-app-f6375-default-rtdb.firebaseio.com/meals.json"
       );
       const responseData = await response.json();
 
-      const loadedMeals=[];
-      for (const key in responseData){
+      const loadedMeals = [];
+      for (const key in responseData) {
         loadedMeals.push({
-          id:key,
-          name:responseData[key].name,
-          description:responseData[key].description,
-          price:responseData[key].price
-        })
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
       }
       setMeals(loadedMeals);
     };
     fetchMeals();
+    setIsLoading(false);
   }, []);
+
+  // if(isLoading){
+  //   return(
+  //     <section className={classes.MealsLoading}>
+  //       <p>loading</p>
+  //     </section>
+  //   )
+  // }
 
   const mealsList = meals.map((meal) => (
     <MealItem
@@ -41,6 +52,7 @@ const AvaileableMeals = () => {
     <section className={classes.meals}>
       <Card>
         <ul>{mealsList}</ul>
+        {!isLoading && <p className={classes.MealsLoading}>...loading</p>}
       </Card>
     </section>
   );
