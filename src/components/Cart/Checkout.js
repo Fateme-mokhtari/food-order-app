@@ -47,6 +47,13 @@ const Checkout = (props) => {
       console.log("form is not valid");
       return;
     }
+
+    props.onConfirm({
+        name: enteredName,
+        street: enteredStreet,
+        city: enteredCity,
+        postalCode: enteredPostalCode,
+    })
   };
   const nameInputClasses = `${classes["form-control"]} ${
     formInputValidity.name ? "" : classes.invalid

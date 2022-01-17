@@ -22,9 +22,18 @@ const Cart = (props) => {
   const orderHandler = () => {
     setIsCheckout(true);
   };
- const cancelHandler=()=>{
+  const cancelHandler = () => {
     setIsCheckout(false);
-  }
+  };
+  const submitOrderHandler = (userData) => {
+    fetch("https://food-app-f6375-default-rtdb.firebaseio.com/orders.json",{
+      method:'POST',
+      body:JSON.stringify({
+        user:userData,
+        orderedItems:cartCtx.items
+      }),
+    });
+  };
   const cartItem = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
@@ -39,16 +48,18 @@ const Cart = (props) => {
       ))}
     </ul>
   );
-  const cartActions=(    <div className={classes.actions}>
-    <button className={classes["button--alt"]} onClick={props.onClose}>
-      Close
-    </button>
-    {hasItem && (
-      <button className={classes.button} onClick={orderHandler}>
-        Order
+  const cartActions = (
+    <div className={classes.actions}>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
       </button>
-    )}
-  </div>)
+      {hasItem && (
+        <button className={classes.button} onClick={orderHandler}>
+          Order
+        </button>
+      )}
+    </div>
+  );
 
   return (
     <Modal onClose={props.onClose}>
@@ -57,8 +68,12 @@ const Cart = (props) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-  
-      {isCheckout ? <Checkout  onCancel={cancelHandler} />:cartActions}
+
+      {isCheckout ? (
+        <Checkout onConfirm={submitOrderHandler} onCancel={cancelHandler} />
+      ) : (
+        cartActions
+      )}
     </Modal>
   );
 };
